@@ -9,15 +9,13 @@ public class Main {
             System.exit(1);
         }
 
-        String command = args[0];
-        if (!command.equals("init") && !command.equals("status")) {
-            System.err.println("Invalid command");
-            System.exit(1);
-        }
-
         CommandParser parser = new CommandParser();
 
-        Command cmd = parser.parse(command);
-        cmd.execute();
+        try {
+            Command cmd = parser.parse(args[0]);
+            cmd.execute();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
