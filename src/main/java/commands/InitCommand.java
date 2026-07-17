@@ -1,7 +1,11 @@
 package commands;
 
+import repository.Repository;
+
 public class InitCommand implements Command {
     public void execute() {
-        System.out.println("Initializing repository...");
+        Repository repo = new Repository();
+
+        repo.init();
     }
 }

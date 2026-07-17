@@ -23,4 +23,5 @@ test {
 
 application {
     mainClass = 'cli.Main'
+    applicationName = 'jgit'
 }
