@@ -12,6 +12,10 @@ public class Repository {
         return Files.exists(REPOSITORY_PATH);
     }
 
+    public Path getObjectsDirectory() {
+        return REPOSITORY_PATH.resolve("objects");
+    }
+
     public void init() {
         if (exists()) {
             throw new RuntimeException("Repository already exists");
