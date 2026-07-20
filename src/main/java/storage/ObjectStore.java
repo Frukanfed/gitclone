@@ -1,6 +1,7 @@
 package storage;
 
 import objects.Blob;
+import objects.GitObject;
 import repository.Repository;
 
 import java.io.IOException;
@@ -14,15 +15,15 @@ public class ObjectStore {
         this.repository = repository;
     }
 
-    public void save(Blob blob) {
-        Path objectPath = repository.getObjectsDirectory().resolve(blob.getHash());
+    public void save(GitObject gitObject) {
+        Path objectPath = repository.getObjectsDirectory().resolve(gitObject.getHash());
 
         if (Files.exists(objectPath)) {
             return;
         }
 
         try {
-            Files.write(objectPath, blob.getData());
+            Files.write(objectPath, gitObject.getData());
         } catch (IOException e) {
             throw new RuntimeException("Failed to create object file: " + e.getMessage(), e);
         }
