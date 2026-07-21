@@ -1,5 +1,8 @@
 package repository;
 
+import objects.Blob;
+import storage.ObjectStore;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
@@ -18,7 +21,8 @@ public class Repository {
 
     public void init() {
         if (exists()) {
-            throw new RuntimeException("Repository already exists");
+            System.err.println("Repository already exists");
+            return;
         }
 
         try {
@@ -32,5 +36,30 @@ public class Repository {
         } catch (IOException e) {
             throw new RuntimeException("Failed to initialize " + e.getMessage(), e);
         }
+    }
+
+    public void add(String filePath) {
+        if(!exists()) {
+            System.err.println("This is not a git repository!");
+            return;
+        }
+
+        Path path = Path.of(filePath);
+        if (!Files.exists(path)) {
+            System.err.println("File does not exist: " + filePath);
+            return;
+        }
+
+        ObjectStore store = new ObjectStore(this);
+
+        try {
+            byte[] data = Files.readAllBytes(path);
+
+            Blob blob = new Blob(data);
+            store.save(blob);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to add " + e.getMessage(), e);
+        }
+
     }
 }

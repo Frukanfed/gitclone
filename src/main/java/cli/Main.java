@@ -12,8 +12,8 @@ public class Main {
         CommandParser parser = new CommandParser();
 
         try {
-            Command cmd = parser.parse(args[0]);
-            cmd.execute();
+            Command cmd = parser.parse(args);
+            cmd.execute(args);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

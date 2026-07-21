@@ -3,7 +3,8 @@ package commands;
 import repository.Repository;
 
 public class InitCommand implements Command {
-    public void execute() {
+    @Override
+    public void execute(String... args) {
         Repository repo = new Repository();
 
         repo.init();
