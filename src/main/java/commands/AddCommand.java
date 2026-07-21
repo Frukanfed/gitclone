@@ -3,16 +3,21 @@ package commands;
 import repository.Repository;
 
 public class AddCommand implements Command {
+    private final Repository repository;
+
+    public AddCommand(Repository repository) {
+        this.repository = repository;
+    }
+
 
     @Override
     public void execute(String... args) {
-        if (args.length < 2) {
+        if (args.length < 1) {
             System.err.println("No file specified");
 
             return;
         }
 
-        Repository repo = new Repository();
-        repo.add(args[1]);
+        repository.add(args[0]);
     }
 }

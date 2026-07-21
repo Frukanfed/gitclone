@@ -1,6 +1,9 @@
 package cli;
 
 import commands.Command;
+import repository.Repository;
+
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,8 +15,11 @@ public class Main {
         CommandParser parser = new CommandParser();
 
         try {
-            Command cmd = parser.parse(args);
-            cmd.execute(args);
+            Repository repository = new Repository();
+            Command cmd = parser.parse(args, repository);
+
+            String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
+            cmd.execute(commandArgs);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
