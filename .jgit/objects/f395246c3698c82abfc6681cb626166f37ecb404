@@ -1,0 +1,26 @@
+package objects;
+
+import util.Hashing;
+
+import java.util.Arrays;
+
+public class Blob implements GitObject {
+    private final byte[] data;
+    private final String hash;
+
+    public Blob(byte[] data) {
+        this.data = Arrays.copyOf(data, data.length);
+
+        this.hash = Hashing.sha1(this.data);
+    }
+
+    public byte[] getData() {
+        return Arrays.copyOf(data, data.length);
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    private String a = "TEsting";
+}
