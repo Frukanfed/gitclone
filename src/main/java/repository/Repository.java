@@ -1,12 +1,14 @@
 package repository;
 
 import objects.Blob;
+import storage.IndexEntry;
 import storage.IndexStore;
 import storage.ObjectStore;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.util.List;
 
 
 public class Repository {
@@ -69,5 +71,20 @@ public class Repository {
             throw new RuntimeException("Failed to add " + e.getMessage(), e);
         }
 
+    }
+
+    public void status() {
+        if(!exists()) {
+            System.err.println("This is not a git repository!");
+            return;
+        }
+
+        IndexStore store = new IndexStore(this);
+
+        List<IndexEntry> entries = store.read();
+
+        for(IndexEntry entry: entries) {
+            System.out.println(entry.getPath());
+        }
     }
 }
